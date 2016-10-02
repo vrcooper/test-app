@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'checkouts/new'
+
+  get 'checkouts/show'
+
   resources :wikis
 
   devise_for :users
