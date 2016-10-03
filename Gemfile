@@ -59,4 +59,5 @@ gem 'pundit'
 gem 'faker'
 gem 'braintree', '~> 2.66.0'
 gem 'dotenv', '~> 2.0'
+gem 'gon', '~> 5.1.2'
 

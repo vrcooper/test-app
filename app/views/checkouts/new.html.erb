@@ -36,20 +36,43 @@
         <div class="form-control" id="postal-code"></div>
       </div>
     </div>
-
-    
-    <button value="submit" id="submit" class="btn btn-success btn-lg center-block">Pay with <span id="card-type">Card</span></button>
   </form>
+    
+      <%= form_tag("/checkouts", method: "post", id: "payment-form") do %>
+        
 
-<!-- Load the required client component. -->
-<script src="https://js.braintreegateway.com/web/3.3.0/js/client.min.js"></script>
 
-<!-- Load Hosted Fields component. -->
-<script src="https://js.braintreegateway.com/web/3.3.0/js/hosted-fields.min.js"></script>
+        <section>
+         <div class="form-group col-xs-6">
+          <label class="control-label">Amount
+          <div class="input-wrapper amount-wrapper">
+              <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="25">
+            </div>
+          </label>
+          </div>
+        
+        <button class="btn btn-success btn-lg center-block" value="submit" id="submit"><span>Pay with Card</span></button>
+        </section>
 
-$('#my-checkout-form').hostedFields({
-  authorization: 'YOUR BRAINTREE CLIENT TOKEN',
-  number: '#my-hosted-field-number',
-  cvv: '#my-hosted-field-cvv',
-  expirationDate: '#my-hosted-field-expiration-date'
-})
+        
+      
+      <% end %>
+
+</div>  
+
+<script src="https://js.braintreegateway.com/js/braintree-2.27.0.min.js"></script>
+<script>
+  (function () {
+    var checkout = new Demo({
+      formID: 'payment-form'
+    });
+    
+    // var client_token = "<%= @client_token %>";
+      var client_token = "<%= @client_token %>"
+
+    braintree.setup(client_token, "custom", {
+      container: "custom"
+    });
+  })()
+</script>
+

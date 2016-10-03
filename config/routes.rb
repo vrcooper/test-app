@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'checkouts/new'
-
-  get 'checkouts/show'
+  resources :checkouts, only: [:new, :create]
 
   resources :wikis
 

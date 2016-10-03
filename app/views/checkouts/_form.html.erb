@@ -1,0 +1,9 @@
+<form id="checkout" method="post" action="/checkout">
+  <div id="dropin"></div>
+  <input type="submit" value="Pay $25">
+</form>
+
+<script type="text/javascript">
+  function setupBT() {
+    braintree.setup(CLIENT_AUTHORIZATION, 'custom', options);)
+  }

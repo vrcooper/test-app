@@ -75,6 +75,11 @@ GEM
       thor (~> 0.14)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gon (5.1.2)
+      actionpack (>= 2.3.0)
+      json
+      multi_json
+      request_store (>= 1.0.5)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -137,6 +142,7 @@ GEM
     rake (11.3.0)
     rdoc (4.2.2)
       json (~> 1.4)
+    request_store (1.3.1)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     sass (3.4.22)
@@ -188,6 +194,7 @@ DEPENDENCIES
   dotenv (~> 2.0)
   faker
   figaro (= 1.0)
+  gon (~> 5.1.2)
   jbuilder (~> 2.0)
   jquery-rails
   pg
