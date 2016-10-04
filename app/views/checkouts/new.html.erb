@@ -1,78 +1,55 @@
 <div class="panel panel-default bootstrap-basic">
-  <div class="panel-heading">
-    <h3 class="panel-title">Enter Card Details</h3>
-  </div>
-  <form class="panel-body">
-    <div class="row">
-      <div class="form-group col-xs-8">
-        <label class="control-label">Card Number</label>
-        <!--  Hosted Fields div container -->
-        <div class="form-control" id="card-number"></div>
-        <span class="helper-text"></span>
-      </div>
-      <div class="form-group col-xs-4">
-        <div class="row">
-          <label class="control-label col-xs-12">Expiration Date</label>
-          <div class="col-xs-6">
-            <!--  Hosted Fields div container -->
-            <div class="form-control" id="expiration-month"></div>
-          </div>
-          <div class="col-xs-6">
-            <!--  Hosted Fields div container -->
-            <div class="form-control" id="expiration-year"></div>
-          </div>
+    <div class="panel-heading">
+      <h3 class="panel-title">Enter Card Details</h3>
+    </div>
+    <form id="payment-form" class="panel-body"method="post" action="result/">
+  
+      <div class="row"> 
+        <div class="form-group col-md-6"> 
+            <label class="control-label">Card Number:</label>
+              <input data-braintree-name="number" value="4111111111111111">
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label"> Expiration Date: (MM/YY):</label> 
+            <input data-braintree-name="expiration_date" value="10/20"> 
         </div>
       </div>
-    </div>
+
     <div class="row">
-      <div class="form-group col-xs-6">
-        <label class="control-label">Security Code</label>
-        <!--  Hosted Fields div container -->
-        <div class="form-control" id="cvv"></div>
+      <div class="form-group col-md-6">
+        <label class="control-label">Security Code:</label> 
+          <input data-braintree-name="cvv" value="100">
       </div>
-      <div class="form-group col-xs-6">
-        <label class="control-label">Zipcode</label>
-        <!--  Hosted Fields div container -->
-        <div class="form-control" id="postal-code"></div>
+      <div class="form-group col-md-6">
+          <label class"=control-label">Zip Code:</label> 
+            <input data-braintree-name="postal_code" value="94107">
       </div>
-    </div>
-  </form>
+  </div>
+
+      <%= form_tag("/checkouts", method: "post", id: "custom") do %>
     
-      <%= form_tag("/checkouts", method: "post", id: "payment-form") do %>
-        
-
-
         <section>
-         <div class="form-group col-xs-6">
-          <label class="control-label">Amount
-          <div class="input-wrapper amount-wrapper">
+          <div id="custom"></div>
+            <div class="form-group col-xs-6">
+                <label class="control-label">Amount
+                  <div class="input-wrapper amount-wrapper">
               <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="25">
             </div>
           </label>
           </div>
         
         <button class="btn btn-success btn-lg center-block" value="submit" id="submit"><span>Pay with Card</span></button>
-        </section>
-
-        
-      
+        </section>      
       <% end %>
+</form>
 
-</div>  
-
-<script src="https://js.braintreegateway.com/js/braintree-2.27.0.min.js"></script>
+  <script src="https://js.braintreegateway.com/js/braintree-2.27.0.min.js"></script>
 <script>
-  (function () {
-    var checkout = new Demo({
-      formID: 'payment-form'
-    });
-    
-    // var client_token = "<%= @client_token %>";
-      var client_token = "<%= @client_token %>"
 
-    braintree.setup(client_token, "custom", {
-      container: "custom"
-    });
-  })()
+<script>
+braintree.setup(
+  "<%=@client_token%>", 
+    'custom'{
+      container: 'custom'
+  });
 </script>
-

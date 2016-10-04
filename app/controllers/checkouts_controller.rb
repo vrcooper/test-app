@@ -1,71 +1,32 @@
 class CheckoutsController < ApplicationController
-  TRANSACTION_SUCCESS_STATUSES = [
-    Braintree::Transaction::Status::Authorizing,
-    Braintree::Transaction::Status::Authorized,
-    Braintree::Transaction::Status::Settled,
-    Braintree::Transaction::Status::SettlementConfirmed,
-    Braintree::Transaction::Status::SettlementPending,
-    Braintree::Transaction::Status::Settling,
-    Braintree::Transaction::Status::SubmittedForSettlement,
-  ]
-
   def new
-    
-   @client_token = Braintree::ClientToken.generate
-    
-  end
-
-  def show
-    @transaction = Braintree::Transaction.find(params[:id])
-    @result = _create_result_hash(@transaction)
+    @client_token = Braintree::ClientToken.generate
   end
 
   def create
+    nonce = params[:payment_method_nonce]
+    render action: :new and return unless nonce
+    result = Braintree::Transaction.sale(
+      amount: "25.00",
+      payment_method_nonce: nonce,
+      options: {
+        :submit_for_settlement => true
+      }
+    )
 
-    result = Braintree::Customer.create(
-  :first_name => "Charity",
-  :last_name => "Smith",
-  :payment_method_nonce => 'fake-valid-nonce'
-)
-if result.success?
-  puts result.customer.id
-  puts result.customer.payment_methods[0].token
-else
-  p result.errors
+    flash[:notice] = "Success! You have been upgraded to premium membership." if result.success?
+    
+    flash[:alert] = "Sorry but there has been an error. Please try again #{result.transaction.processor_response_text}" unless result.success?
+    redirect_to action: :new
+  end
+
+  def downgrade
+      current_user.wikis.each {|w| w.update_attribute(:private, false) }
+      current_user.update_attribute(:role, 'standard')
+      flash[:notice] = "Congratulations, #{current_user.email}! You have downgraded to Standard membership."
+      redirect_to wikis_path
+  end
+
 end
 
 
-    @result = Braintree::Transaction.sale(
-      amount: params[:amount],
-      payment_method_nonce: params[:payment_method_nonce])
-
-    if @result.success? || @result.transaction
-      redirect_to checkout_path(@result.transaction.id)
-    else
-      error_messages = @result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
-      flash[:error] = error_messages
-      redirect_to new_checkout_path
-    end 
-
-
-
-  end
-
-  def _create_result_hash(transaction)
-    status = transaction.status
-
-    if TRANSACTION_SUCCESS_STATUSES.include? status
-      result_hash = {
-        :header => "Sweet Success!",
-        :icon => "success",
-        :message => "Your test transaction has been successfully processed. See the Braintree API response and try again."
-      }
-    else
-      result_hash = {
-        :header => "Transaction Failed",
-        :icon => "fail",
-        :message => "Your test transaction has a status of #{status}. See the Braintree API response and try again."
-      }
-    end
-  end
-end
