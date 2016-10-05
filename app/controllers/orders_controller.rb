@@ -3,13 +3,13 @@ class OrdersController < ApplicationController
 def checkout
   result = Braintree::Transaction.sale(
    
-    amount: "25.00",
+    amount: "1.01",
     # use line below for implementation
-    #:payment_method_nonce => params[:payment_method_nonce]
+    :payment_method_nonce => params[:payment_method_nonce]
 
     # use lines below for testing
-    payment_method_nonce: 'fake-valid-nonce',
-    #payment_method_nonce: 'fake-luhn-invalid-nonce'
+    # payment_method_nonce: 'fake-valid-nonce',
+    # payment_method_nonce: 'fake-luhn-invalid-nonce'
 
      :customer =>  {
         :first_name =>  "Jane",
