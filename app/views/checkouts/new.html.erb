@@ -1,0 +1,65 @@
+<div class="panel panel-default bootstrap-basic">
+  <div class="panel-heading">
+    <h3 class="panel-title">Enter Card Details</h3>
+  </div>
+  <form class="panel-body">
+    <div class="row">
+      <div class="form-group col-xs-8">
+        <label class="control-label">Card Number</label>
+        <!--  Hosted Fields div container -->
+        <input type="text" data-braintree-name="number" class="form-control" placeholder="4111 1111 1111 1111">
+      </div>
+      <div class="form-group col-xs-4">
+        <div class="row">
+          <label class="control-label col-xs-12">Expiration Date</label>
+          <div class="col-xs-6">
+            <!--  Hosted Fields div container -->
+            <input type="text" data-braintree-name="expiration_date" class="form-control" placeholder="MM/YY">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-6">
+        <label class="control-label">Security Code</label>
+        <!--  Hosted Fields div container -->
+        <input type="number" data-braintree-name="cvv" class="form-control" placeholder="123">
+      </div>
+      <div class="form-group col-xs-6">
+        <label class="control-label">Zipcode</label>
+        <!--  Hosted Fields div container -->
+        <input type="number" data-braintree-name="postal_code" class="form-control" placeholder="94710">
+      </div>
+    </div>
+  </form>
+
+<%= form_tag("/checkouts", method: "post", id: "payment-form") do %>
+        
+
+
+        <section>
+         <div class="form-group col-xs-6">
+          <label class="control-label">Amount
+          <div class="input-wrapper amount-wrapper">
+              <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="25">
+            </div>
+          </label>
+          </div>
+        
+        <button class="btn btn-success btn-lg center-block" value="submit" id="submit"><span>Pay with Card</span></button>
+        </section>
+
+        
+      
+      <% end %>
+
+</div>  
+
+
+<script>  
+braintree.setup(
+  "<%= @client_token %>",
+  'custom', {
+    container: 'custom'
+});
+</script>
