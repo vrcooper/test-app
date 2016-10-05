@@ -4,6 +4,7 @@ class CheckoutsController < ApplicationController
   end
 
   def create
+    nonce = params["payment_method_nonce"]
   end
 end
 
