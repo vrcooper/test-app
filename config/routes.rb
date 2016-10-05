@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
   
+  
+  post '/checkouts', to: 'orders#checkout'
+  
+
   get 'wikis/create'
 
   devise_for :users
 
   resources :checkouts, only: [:new, :create]
 
-  delete 'charges/downgrade'
+  resources :orders, only: [:new, :create]
+
+  delete 'orders/downgrade'
 
   resources :wikis
 
@@ -18,7 +24,7 @@ Rails.application.routes.draw do
     authenticated do
   
       root to: 'wikis#index', as: :authenticated_root
-      post '/checkouts', to: 'orders#checkout'
+      
     end
 
     unauthenticated do
