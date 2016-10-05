@@ -1,15 +1,22 @@
 class OrdersController < ApplicationController
 
+  def create
+     nonce = params["payment_method_nonce"]
+  end
+
 def checkout
+
+   nonce = params["payment_method_nonce"]
+
   result = Braintree::Transaction.sale(
    
     amount: "1.01",
     # use line below for implementation
     # :payment_method_nonce => params[:payment_method_nonce]
-
+      :payment_method_nonce => nonce,
+    
     # use lines below for testing
-    :nonce_from_the_client = params[:payment_method_nonce],
-
+    #  payment_method_nonce: 'fake-valid-nonce',
     # payment_method_nonce: 'fake-luhn-invalid-nonce'
 
      :customer =>  {
