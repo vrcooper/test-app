@@ -19,6 +19,10 @@ views/devise/registrations/edit.html.erb
 
 views/layouts/application.html.erb
 
+app/config/initializers/braintree.rb
+
+Gemfile
+
 
 Click on the email address link next to Hello at the top of the page in the nav bar area, for example: Hello janed@example.com
 
