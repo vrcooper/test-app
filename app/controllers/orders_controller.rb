@@ -13,21 +13,28 @@ def checkout
     amount: "1.00",
     # use line below for implementation
     # :payment_method_nonce => params[:payment_method_nonce]
-      payment_method_nonce: 'nonce',
+    # payment_method_nonce: 'nonce',
     
     # use lines below for testing
-    #  payment_method_nonce: 'fake-valid-nonce',
+      payment_method_nonce: 'fake-valid-nonce',
     # payment_method_nonce: 'fake-luhn-invalid-nonce'
 
      :customer =>  {
-        :first_name =>  "Jane",
-        :last_name => "Doe",
-        :company => "Braintree",
-        :phone => "312-555-1234",
-        :fax => "312-555-1235",
-        :website => "http://www.example.com",
-        :email => "jane@example.com"
+        :first_name =>  "Virginia",
+        :last_name => "Cooper",
+        :phone => "330-389-2571",
+        :email => "vcooper_us@yahoo.com"
      },
+
+     :billing => {
+        :first_name => "Virginia",
+        :last_name => "Cooper",
+        :street_address => "3760 Park Boulevard Way",
+        :extended_address => "Apt. 34",
+        :locality => "Oakland",
+        :region => "CA",
+        :postal_code => "94610"    
+      },
 
      :options => {
         :store_in_vault_on_success => true
