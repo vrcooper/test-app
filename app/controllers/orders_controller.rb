@@ -37,6 +37,7 @@ def checkout
       },
 
      :options => {
+        :submit_for_settlement => true,
         :store_in_vault_on_success => true
      },
   )
