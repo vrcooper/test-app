@@ -17,10 +17,10 @@ def checkout
     amount: "1.00",
     # use line below for implementation
     # :payment_method_nonce => params[:payment_method_nonce]
-    # payment_method_nonce: 'nonce',
+     payment_method_nonce: 'nonce',
     
     # use lines below for testing
-      payment_method_nonce: 'fake-valid-nonce',
+    # payment_method_nonce: 'fake-valid-nonce',
     # payment_method_nonce: 'fake-luhn-invalid-nonce'
 
      :customer =>  {
